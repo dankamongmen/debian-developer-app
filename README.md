@@ -8,7 +8,7 @@ uploading under sponsorship for a little over a year, and had been a Debian
 Maintainer for about six months. I had overseen my own Debian Derivative,
 "SprezzOS", for two years (2012–2013). I had created and maintained dozens of
 DEB packages professionally and for open source outside of Debian,
-preparing and administrating close a handful of [repropro](https://salsa.debian.org/brlink/reprepro)
+preparing and administrating close a handful of [reprepro](https://salsa.debian.org/brlink/reprepro)
 instances. I had spent two years on Google's internal "Goobuntu" Linux team.
 I had filed (and oftentimes submitted patches for) [many Debian bugs](https://nick-black.com/dankwiki/index.php?title=Debian).
 I had spoken at FOSDEM and Debconf, and had patches accepted in over
