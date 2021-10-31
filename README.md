@@ -43,4 +43,15 @@ process. With that said, (almost) all materials of the Debian Project are open,
 and I see little reason to hide these. There are no secrets contained
 herein.
 
+I'd like to thank Jason Lunz for introducing me to Debian back in 2001.
+I thank Jonathan Carter, at that time Project Leader, for encouraging
+me to get more involved with Debian. I thank Robert Edmonds and Hideki Yamane
+for sponsoring some early uploads, and especially Hideki for Nominating me
+as a DM. I thank Philipp Kern for his grandmotherly kindness, for sponsoring
+some early uploads, and especially for Advocating me as a DD. Finally, I
+thank Sebastian Ramacher for Managing my application, and all Debian Developers
+past, present, and future for admitting me to their ranks.
+
+I pledge to carry forth your torch nobly.
+
 —Nick Black (dank@debian.org), Atlanta 2021
