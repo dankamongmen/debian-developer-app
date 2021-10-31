@@ -54,21 +54,3 @@ BU8. What is a source-only upload? How do you prepare a source-only
      disadvantages of such upload type. Please also explain why you
      should do binary uploads to NEW queue and source-only uploads in
      most common cases.
-
-Architectures and Libraries
----------------------------
-
-AL5. What target would you use in debian/rules to build a .deb
-     package which includes only non-architecture-dependent files?
-     What is the "Architecture:" field for this package?
-
-AL7. Why does a libfoo-dev package depend on libfooX?
-     Why is it libfooX-dev and not libfoo-dev in some cases?
-     (When) is libfooX-dev preferable over libfoo-dev?
-
-ALA. What are debian/*.symbols files? How are they maintained?
-ALC. What are the special steps one must take when upgrading a
-     package that previously contained libfooX.so.N and now contains
-     libfooX.so.N+1? What if the library filename remains the same,
-     but users report that programs depending on your library now
-     stop working with the new version?
