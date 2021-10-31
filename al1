@@ -9,9 +9,57 @@ AL7. Why does a libfoo-dev package depend on libfooX?
      Why is it libfooX-dev and not libfoo-dev in some cases?
      (When) is libfooX-dev preferable over libfoo-dev?
 
+AL7a. Without the backing libfooX, it will not be possible to link nor
+      load a binary built against this (shared) library; without the ability to
+      link, it is not possible to consider higher-level building successful.
+      Per Policy 8.5, the dependency ought be exact, using ${binary:Version}.
+
+      More than one libfooX-dev package might be present in the archive
+      when it is desirable or necessary to provide more than one API version
+      of the library. For instance, the archive currently contains both
+      libncurses5-dev, depending upon libncurses5, and libncurses-dev,
+      depending upon libncurses6. This is particularly valuable when it is
+      not possible to transition all reverse dependencies; it also facilitates
+      (for better or worse) external binaries which cannot easily be rebuilt.
+
 ALA. What are debian/*.symbols files? How are they maintained?
+
+ALAa. Symbol files detail the exported symbols of a shared library, and when
+      they were introduced or most recently significantly changed. This helps
+      ensure binary packages require the necessary version of a shared libary.
+
+      They are maintained by the package maintainer, usually in conjunction
+      with dpkg-gensymbols as invoked (usually implicitly) by debian/rules.
+      dpkg-gensymbols will list any symbols not yet present in the symbols
+      file, with a lintian check firing off on such output.
+
 ALC. What are the special steps one must take when upgrading a
      package that previously contained libfooX.so.N and now contains
      libfooX.so.N+1? What if the library filename remains the same,
      but users report that programs depending on your library now
      stop working with the new version?
+
+ALCa. In the former case, the ABI has changed, and we must initiate a
+      transition. The standard flow for transitions is outlined at
+      https://wiki.debian.org/Teams/ReleaseTeam/Transitions, and consists
+      of (with some additions of my own):
+
+      * preliminary mail to debian-devel-announce regarding the transition
+      * reach out to reverse-dep maintainers
+      * update the package name in the control file
+      * upload to experimental
+      * acquire FTPmaster approval for the new package
+      * verify auto-transitioner tracker creation
+      * test build reverse deps
+      * file a bug against release.debian.org requesting a transition slot
+      * acquire Release Team ACK of transition
+      * upload to unstable
+      * bump blocking bugs to Release-Critical
+      * wrangle reverse deps until old version is decruftified
+
+      In the latter case, it is possible that an ABI break has occurred
+      without an SONAME change. This will need to be investigated; ideally
+      the SONAME will be bumped upstream if applicable, and the new version
+      can be picked up for the transition process outlined above. If not,
+      an SONAME patch might be maintained locally. Either way, the version
+      which broke ABI might be rolled back using the "+really" convention.
