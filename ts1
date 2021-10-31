@@ -58,6 +58,19 @@ PF7. What is Essential: yes? Why isn't libc essential and why can't it
      be? Why does it not need to be essential? Why isn't the kernel
      essential? Should init be essential?
 
+PF7a. This boolean control field, when set to yes, will prevent the package
+      manager from removing the package. I count 23 installed packages on
+      my Debian Unstable workstation with "Essential: yes".
+
+      libc isn't essential because it doesn't exist, har-har. libc6 isn't
+      allowed to be Essential because it is a shared library (DPM 3.8).
+      It will not be removed (unless superseded) because it is a dependency of
+      a great many packages, some of them themselves Essential (e.g. libc-bin).
+
+      A Debian instance does not require its own kernel; see for instance any
+      of a trillion containerized installations. The kernel ought thus not be
+      essential. The same logic applies IMHO to an init system.
+
 PFf. Write a small shell script which does the following two things:
      a. prints whether a Debian binary package has a copyright file
         in the appropriate location.
@@ -69,6 +82,12 @@ PFf. Write a small shell script which does the following two things:
 PFg. Consider the following versions for a package: 1.0-1~bpo10+1 and
      1.0+git20191013.0ab53ef-1. Please, explain the effect of symbols
      '+' and '~' in +git and ~bpo.
+
+PFga. "+git20191013" here means that the upstream Git repo has been packaged
+      using a version from 2019-10-13. "~bpo10" possibly indicates a Debian
+      Derivative's forked version number. In either case, the punctuation is
+      being used to force sorting breaks; tilde sorts before anything, even
+      before the end of a part (deb-version(5)).
 
 If you have filed bugreports (with patches) to the BTS with respect to
 packaging issues, please tell me bug numbers, so I can check them.
