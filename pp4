@@ -1,0 +1,57 @@
+PR3. What should you do when a security bug is discovered in one of your
+     packages? What steps do you need to fix a problem in one of your
+     packages in the stable release?
+
+PR3a. This process is covered in 5.8.5 of the Developer's Reference. I ought
+collect information about the issue and contact the security team at
+team@security.debian.org. If necessary, mails ought be encrypted to the Debian
+Security Contact key. Quoting 5.8.5, information worth collecting includes:
+
+ * Whether or not the bug is already public.
+ * Which versions of the package are known to be affected by the bug.
+ * The nature of the fix, if any is available
+ * Debdiffs if I've created fixes
+ * Testing information, including known exploit code
+ * Any information necessary for the DSA (though the security team
+    is responsible for the final text)
+
+If secrecy is needed, I must not upload a fix to unstable (or any other
+public repository). Requests that bugs not be disclosed ought generally
+be honored (and communicated to the security team).
+
+An update ought be prepared for stable, made up of the minimum possible
+code to repair the security problem (above and beyond standard ABI/API
+breakage requirements). Test the changes. Target the codename-security
+repository. Set urgency to high. Make a descriptive changelog entry,
+referencing all relevant DBTS/CVE entries. Honor the +debXu1 convention
+for version numbering. Build with full upstream source
+(dpkg-buildpackage -sa). Verify validity of the orig tarball.
+
+Finally, the package ought not be updloaded to the security queue without
+prior authorization from the security team (5.6.3). Once it has been
+approved, upload to ftp://ftp.security.upload.debian.org/pub/SecurityUploadQueue/.
+
+PR8. You just discovered a bug in many packages. What are your next
+     steps? Are there alternatives to filing bugs?
+
+PR8a. I've several times seen people mail debian-devel@ prior to a
+mass-filing, although I don't recall this precluding bug filings except for
+cases where the original poster was convinced that they were in the wrong.
+In any case, this is recommended by 7.1.1 of the Developer's Reference.
+Such mails ought include dd-list/whodepends output.
+
+Were it not now deprecated to file "a great number of bugs for the same
+problem on a great number of different packages", I would use "mass-bug"
+from the devscripts package. "mass-bug" makes this process pretty simple,
+and protects against some common failures. With that said, I presume you're
+looking for me to mention:
+
+ * use of maintonly@bugs.debian.org rather than submit@ to reduce churn on
+   mailing lists, and
+ * optional use of X-Debbugs-No-Ack to prevent acknowledgement mails.
+
+Come to think of it, given 7.1.1's deprecation of mass bug filing, oughtn't
+mass-bugs(1) perhaps be *removed* from devscripts? Hrmmm.
+
+In any case, it is preferable (if possible) to define a new Lintian test
+for such bugs.

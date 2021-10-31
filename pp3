@@ -1,0 +1,151 @@
+BT2. You have a package (current packaged version is 1.3-1), with a set
+of open bugs:
+
+       #123: eats lots of memory (fixed in 1.2)
+       #345: please package version 1.4
+       #567: typo in package description
+       #789: segfaults every Sunday (fixed in 1.4)
+       #901: please move config file to /usr/local/etc
+
+     Please write a changelog entry for the upload of the new version
+     1.4 of the package.  What do you do with the bugs not mentioned
+     in the changelog?
+
+BT2a.
+
+First off, I would likely push back against #901, since Debian packages
+must not write to /usr/local (lintian: file-in-usr-local). So #901 is
+almost certainly *not* fixed by this release.
+
+Assuming that no DFSG-nonfree material was removed (and thus our suffix is
+still merely -1), and that we're uploading to unstable:
+
+------------------------------------------------------------------------------
+mypackage (1.4-1) unstable; urgency=low
+
+  * New upstream version 1.4 (Closes: #345).
+  * Resolves Sunday segfaults (Closes: #789).
+
+ -- nick black <dank@qemfd.net>  Sun, 17 Oct 2021 16:21:42 -0400
+------------------------------------------------------------------------------
+
+This leaves bugs #123 and #567. The fix for #567 doesn't seem sufficiently
+important to include in the Changelog, so I would simply mail
+567-done@bugs.debian.org with "Version: 1.4" in the first line of the mail,
+followed by "Tags: pending".
+
+As for #123, I would mail 123-done@bugs.debian.org with either "Version: 1.3"
+or, if it had been released, "Version: 1.2" in the first line of the mail.
+This would be followed by "Tags: upstream". The body would explain that this
+fix was already present in the existing package.
+
+For #901, I would mail 901-done@bugs.debian.org *without* any "Version" line
+in the mail, but instead with "Tags: wontfix". The body would point out that
+packages shouldn't write to /usr/local.
+
+BT6. What do you do if you want to reach the submitter of a bug and
+     keep a copy of the mail in the BTS?
+
+BT6a. For bug number XYZ, I would mail XYZ@bugs.debian.org, and explicitly CC
+      the submitter via XYZ-submitter@bugs.debian.org (or their listed email).
+
+BT8. Please explain what a usertag is and why they're useful.
+     How do you tag a bug with a usertag?
+
+BT8a. A bug is tagged with a usertag by adding the following lines to the
+      pseudo-header:
+
+      User: <username> (optional)
+      Usertags: <usertags>
+
+      Where <usertags> is one or more usertags. They will be applied to the
+      previously-specified User, or the email address of the sender if not
+      supplied.
+
+      For an existing bug, email ought be sent to control@bugs.debian.org
+      with the content
+
+      user <username>
+      usertags bugnumber <usertags>
+      thanks
+
+      Usertags (unlike global tags) are freeform tags used by maintainers
+      or more often maintainer teams, or sometimes in a package-specific
+      manner. They're useful for searching the DBTS and organizing views
+      therein.
+
+
+PR1. Is there any of these bits of Debian that you haven't heard of, or
+     of which you would like to know more?
+     ...
+     Note that I only want to show that they exist and to offer
+          pointers or tips if you are interested.
+
+PR1a. I'm familiar with everything on this list, though I've never personally
+      used the UltimateDebianDatabase. I've currently got one small failure
+      in reproducibility in one of my packages, vexingly. I've communicated
+      with the Reproducible Builds Team regarding this, and am hoping to have
+      it fixed soon.
+
+PR3. What should you do when a security bug is discovered in one of your
+     packages? What steps do you need to fix a problem in one of your
+     packages in the stable release?
+
+*** see next set of answers ***
+
+PR7. You can't/won't maintain a package properly any more because
+     you have a lack of time/don't use it anymore. What are your
+     options to handle this situation?
+
+PR7a. Either I can find a comaintainer or maintainer team while retaining
+      maintainership, then remove myself from the team, or orphan the
+      package per Developers Reference 5.9.4. This would require:
+
+      * Setting the package maintainer to Debian QA Group <packages@qa.debian.org>
+      * Submit a bug report against the pseudo package wnpp, titled
+        "O:package--short description", where the description indicates
+        that the package has been orphaned. This bug ought be severity normal,
+        unless the package has priority of standard or higher, in which
+        case severity important ought be used.
+
+      Finally, I could RFA the package if I was willing to continue to maintain
+      it until an adopter came along. In this case, I would replace the "O" in the
+      bug title above with "RFA".
+
+PR8. You just discovered a bug in many packages. What are your next
+     steps? Are there alternatives to filing bugs?
+
+*** see next set of answers ***
+
+PR9. Should you happily sign another developer's OpenPGP key? If not,
+     please explain the checks you will make before signing it.
+
+PR9a. lol, no. I will require evidence of ownership of the identity
+      in the UID. Ideally this will come in the form of a government-issued,
+      unexpired ID that matches the UID, plus a photo that matches the
+      person. The owner of said key and document would then need validate that
+      the fingerprint, type, and length of the key I'm signing do indeed
+      correspond to a private key they hold.
+
+PRa. Do you know how to create a revocation certificate for your OpenPGP
+     key? Do you have one? Why can it be meaningful to set a key
+     expiration date?
+
+
+PRaa.
+      * gpg --output revoke.asc --gen-revoke KEYID
+      * Of course, on a USB key and printout, both kept offsite.
+      * Primarily to remind oneself to swap out subkeys =]. A key expiration
+        date on a primary key can always be changed. This will also limit the
+        exposure of a compromised subkey.
+
+PRb. What would you do if you wanted to retire from the project?
+
+PRba. Per Developers Reference 3.2.5:
+      * Orphan all my packages.
+      * Remove myself from uploaders for co- or team-maintained packages.
+      * Remove myself from debian.org mailing lists (RT tickets for DSAs).
+      * Remove myself from wiki pages and salsa groups.
+      * Request emeritus status at https://nm.debian.org/process/emeritus.
+      * Write a goodbye message for debian-private@.
+      * Belong to the ages.
