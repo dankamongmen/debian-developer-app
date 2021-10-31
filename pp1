@@ -1,0 +1,162 @@
+PH0. First, please have a careful read of the Social Contract and                                                                   
+     the DFSG. What do you think are their main points?
+
+PH0a. The Social Contract is a contract "with the Free Software Community",
+      and its main points can be found in that prepositional clause:
+
+       * Free: Debian is made up entirely of Free Software. This concept is
+          not a trivial one, and conformance is not a mechanical evaluation,
+          hence the need for the DFSG's expanded guidelines (indeed, the
+          primary difference between v1.0 and v1.1 of the DSC is the absence
+          of an explicit guarantee of "absolute freedom", and emphasis instead
+          on the scope of the DFSG). While Project resources might be used to 
+          distribute less-Free or non-Free works, they are not part of the
+          system proper (Articles I, II, and V).
+
+         Furthermore, one of the Project's main value propositions is an
+          entire system which can be trusted to contain only Free Software,
+          relieving users of the need to verify Freedom and vet licenses
+          themselves. Indeed, this might be considered *the* primary value
+          proposition; Debian does not guarantee the absence of bugs or
+          that software is wholly functional or well-designed (though these
+          are certainly desirable); *all* that it guarantees is that the
+          works distributed are Free according to the DFSG (Article IV).
+
+       * Software Community: Debian does not exist in a vacuum, but is rather
+          a proper subset of the larger Free Software Community. It benefits
+          from work outside the Project, and hopes others might benefit from
+          work within. Aside from the -private mailing list, its records and
+          infrastructure are open for the community to inspect and possibly
+          improve. Works created for the Project will be Freely licensed and
+          thus made available to the community for use and improvement.
+          Debian allows users to do what they want with the system, including
+          the use of software which would not be admitted to the Project.
+          While conformance to the DFSG is the only requirement articulated
+          herein for admission to the Project, Debian will strive for
+          high levels of quality (Articles II, III, and IV).
+
+      The DFSG states, in a pithy way, the minimal requirements for works
+       to be considered Free; it is not a legal document (like the Licenses
+       proper), but a set of guidelines and restrictions. Note that the
+       DFSG FAQ expands on this:
+
+       "The DFSG is a potentially imperfect attempt to express what free
+        software means to Debian. It is not something whose letter we argue
+        about. It is not a law. Rather, it is a set of guidelines."
+
+      Its main points include allowances for redistribution in both source
+       and compiled form (independent of the redistributing agent),
+       modification/derivation (including redistribution of any
+       modifications), and universality (these licensed rights apply to
+       all people and projects).
+
+PH1. What is Debian's approach to non-free software? Why? Is non-free
+     part of the Debian System? Please also explain the difference
+     between non-free and the other sections.
+
+PH1a. Non-free software is not admitted to the Debian Project. Per Article
+       IV of the DSC, however, Debian does not object to the use of non-free
+       software on the Debian system. With the goal, then, of a high-quality
+       system, non-free (but *legally distributable*) works (and software
+       depending upon such non-free works) are allowed to be distributed
+       through the contrib/non-free archive areas (and even autobuilt in some
+       cases; see Developers Reference 5.10.5). It is expected that such
+       packages will be configured to work within the Debian system. Such
+       packages are allowed to use DBTS resources, and indeed they "must not
+       be so buggy that [Debian] refuses to support them" (Policy 2.2.3).
+
+       This is done both to improve the Users' experience, for users who
+       insist on using non-free works (they can download them through apt,
+       and benefit from configuration efforts), and in the hope that
+       such works might eventually reach the main archive area (as has
+       happened with a number of projects).
+
+PH2. Suppose that Debian were offered a Debian-specific license to 
+     package a certain piece of software: would we put it in main? 
+
+PH2a. No. This violates DSC8, "License must not be specific to Debian."
+
+PH3. Please explain the difference between free speech and free beer.
+     Is Debian mainly about free speech or free beer?
+
+     Sometimes called "gratis vs. libre", this distinction is necessary due to
+     the polysemous nature of the English word "free". "Free beer" is a
+     positive liberty, a gratis, a work which is offered free of cost. There is
+     no discrimination according to ability to purchase. "Free speech" is a
+     negative liberty, a libre, safeguarding the freedom to "run, copy,
+     distribute, change and improve the software" (FSF); it is a right to use
+     rather than a right to access. Debian's DSC and DFSG are all about libre,
+     though an element of gratis is a part of this freedom.
+
+     A work which is freely accessible, but only from the owner (i.e. it could
+     not be redistributed freely) would be gratis but not libre, and unsuitable
+     for inclusion in Debian.
+
+PH4. What is your opinion about how the DFSG should be applied to files                                                             
+     that are not software, such as documentation, firmware, images,                                       ter!                     
+     etc?
+
+PH4a. Let me first state the Project's policy, which is that all such materia
+      (save those tiny elements falling under a DFSG FAQ 10 exception) must be
+      freely licensed, just as source code must. Furthermore, convention is
+      that they must be distributed in the "preferred form of the work for
+      making modifications" (a term lifted from the GPL). This comes up quite
+      often regarding e.g. PDF documentation; DFSG compliance would generally
+      mandate that the source LaTeX be available in the source package.
+
+      My opinion is that:
+
+       * this is desirable and a necessary, natural extension of the DFSG's
+         policy on "code". First off, code is data and data is code,
+         at least when that data has effects on code's control flow.
+
+       * the existence of the contrib and non-free areas mean arguments
+         derived from "users are our priority" (DSC IV) can be answered with
+         "users can get these works from the areas beyond main", thus
+         toeing the line of "free software is our priority" (ibid).
+
+       * firmware is software, and i'm unsure why the question asserts it
+         to be otherwise. i'm firmly in the camp of "please make non-free network
+         drivers available to users in the installer", and at the same time
+         firmly believe them to belong in non-free.
+          
+       * perhaps most controversially, I believe there to be exceptions that
+         I would make for media that I would not make for code. code (and data
+         affecting that code) runs on my machine, with the privileges i allow
+         it, and does so without my constant inspection; i have delegated to
+         it full rights and privileges to resolve computable functions.
+
+         media does not "operate" in this sense, and thus i'm less concerned
+         with being able to inspect it. i remain concerned about being able to
+         distribute it freely (an absolute requirement) and also to modify it.
+         it is here that i might take exception with understood Debian
+         practice. imagine that a manual includes a screenshot. what is the
+         preferred form of modifying this screenshot? is it opening it up in
+         the GIMP and performing raster edits, or is it running the program
+         afresh and taking a screenshot? if the latter, must we then automate
+         this process? must this automation be kept up to date as Xorg etc.
+         change in the future? i personally have no issue with including the
+         screenshot, even though i'd probably want to reaquire the image
+         *ab initio* if i made some change to the software.
+
+         what if a picture taken with a camera is included as media? what is
+         the preferred source for editing? is it the RAW format, even though
+         such a thing is generally useless without a corresponding hardware
+         model? is it the scene that was captured itself? must a package
+         including a picture of space include the observable universe itself?
+
+         my Notcurses source package includes several videos wholly created
+         by myself, and Freely-licensed. they were created using OpenShot and
+         KDEnlive, both available from main. these tools have no well-defined
+         scripting capabilities, and building the videos headlessly from the
+         project files would be likely to require constant tinkering to deal
+         with new versions. the FTPmaster who reviewed Notcurses took issue
+         with inclusion of the videos in the notcurses-data package, but I
+         successfully argued that inclusion of the project files, together
+         with a note regarding their production, satisfied the DFSG, and
+         further that distribution of the pregenerated results did not violate
+         it--this despite the fact that said results might not at any given
+         time be capable of being generated from the sources, and i would not
+         attempt to generate them in debian/rules. i believe this to be a
+         completely reasonable and pragmatic interpretation of the DFSG, one
+         which was the correct balance of prioritizing users and freedom.

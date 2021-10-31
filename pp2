@@ -1,0 +1,123 @@
+PH5. How do you check if a license is DFSG-compatible? Who has the final
+     say over what can be included in Debian?
+
+PH5a. First off, *I* would be quite hesitant to make an authoritative
+      claim regarding a license's DFSG-compatibility, unless it was on
+      the approved list at https://www.debian.org/legal/licenses/.
+
+      So how do *I* check if a license is DFSG-compatible? Per Policy 2.3,
+      I'd mail debian-legal, unless it was obvious that the license in
+      question was *not* compatible.
+
+      debian-legal@ is of course only an advisory board; the final authority
+      on what's allowed in Debian belongs to the FTPmasters (of course, a
+      member must also be willing to package and maintain the content).
+      Their authority and review is not limited to licenses proper, but also
+      questions of whether the stated license(s) truly cover the packaged
+      material, and whether copyrights have been appropriately documented
+      and honored.
+
+      Now, were a gun placed to my head, and it was demanded that I comment
+      on whether some new license was DFSG-compatible, I would rely on
+      the three tests...
+
+PH6. There are a few "tests" for this purpose, based on (not really)
+     common situations. Explain them to me and point out which common
+     problems can be discovered by them.
+
+PH6a. The three named tests (DFSG FAQ 9), while not comprehensive (and
+      certainly not legal text), cover a good bit of ground:
+
+      The Desert Island test assumes a user "on a desert island with a solar-
+      powerered computer", presumably an island lacking connectivity. The
+      user wants to distribute modified software to her friends on the island.
+      This test locks out that class of licenses which requires that changes
+      be made publicly available, or communicated back to the upstream
+      authors (or any other form of mandatory communication, e.g.
+      postcardware, see DFSG FAQ 12b).
+
+      The Chinese Dissident test assumes a user must not reveal their
+      modifications or even ownership to a general audience, but still wishes
+      to distribute samizdat among trusted associates. Here the user has the
+      *ability* to send changes etc., but not the *ambition*. This test locks
+      out that class of licenses which mandate communication to anyone aside
+      from the intended recipients of works.
+
+      Both the Desert Island and Dissident tests essentially forbid any
+      requirement that one distribute source, or modifications thereof, to
+      anyone but the recipients of resulting objects, particularly upstream.
+
+      The Tentacles of Evil test aka Rubber Hose test assumes a *copyright
+      holder* wishes to revoke granted freedoms, perhaps in the thrall of
+      some tyrannical government or union. This eliminates that class of
+      licenses which explicitly reserve the right to make the license more
+      restrictive, and also those which reserve certain uses of the works to
+      the original authors. The latter limits freedom in the present, while
+      the former casts a pall on freedoms of the future.
+
+PH7. At https://people.debian.org/~joerg/bad.licenses.tar.bz2 you can
+     find a tarball of bad licenses. Please compare the graphviz and
+     three other (your choice) licenses with the first nine points of
+     the DFSG and show a few examples of where they do not comply with
+     the DFSG. There's no need to compare word for word (which would be
+     impossible for some licenses anyway), but you should spot the
+     biggest mistakes.
+     Note: the graphviz license is bad for the brain: don't take too
+     much of it.
+     Also note: graphviz and qmail have now changed licenses in favour
+     of free ones.
+
+PH7a. GRAPHVIZ
+
+     "4. To  the best  of your  knowledge,  your Build  Materials do  not
+         infringe or misappropriate the rights of any person or entity;"
+     Taints other software (DFSG 9).
+
+     "e. You will regularly monitor the Website for any notices."
+     Fails the desert island test (DFSG 5?).
+
+PH7a. QMAIL
+
+     "If you want to distribute modified versions of qmail (including ports,
+      no matter how minor the changes are) you'll have to get my approval."
+     Yeah, no. DFSG 3.
+
+     Man, I can't find that video of DJB public domaining qmail/djbdns. =[
+
+PH7a. DON'T BE A DICK
+
+     "don't be a dick"
+     DFSG 5 and 6, discriminating against both people who are dicks and people
+     endeavoring in the field of dickishness.
+
+PH7a. OSL 2.0
+
+     "10) Termination for Patent Action."
+     Tentacles of Evil test. DFSG FAQ 12o.
+
+    "requirements and penalties of the U.S. Copyright Act, 17 U.S.C. 101"
+    Imposes restrictions on those outside of the US. DFSG FAQ 12p.
+
+
+PHa. Are there any sections of the DFSG or Social Contract that you
+     might like to see changed? If so, which ones, and why?
+
+PHaa. While I might take exception to some of the "case law" surrounding the
+      DFSG and DSC (see my answer to PH4, for instance), I honestly believe
+      the five Articles and 10 Guidelines to be strong, satisfactory
+      statements within their domain.
+
+      With that said, I have great respect for the system which is Debian,
+      and how it has arrived at these documents. Changing them to suit me would
+      be a fundamentally self-interested act, one that would be anathematic to
+      all the Project's history and practice, and an imperious act, one of
+      arrogance equaled only by its lack of wisdom or foresight.
+
+      If anything, I would chip away at what I feel to be a false partition,
+      the "firewall" between main and contrib/non-free. In my mind, these latter
+      areas of the archive are just as much a "part" of Debian as main; the
+      distinction exists primarily as a way to allocate resources, and to
+      facilitate/encourage users running totally free systems if they choose to
+      do so. So DSC #5 is, in my opinion, a bit precious regarding that nasty
+      firmware that the vast majority of users will install. Not as myopic as
+      say Euclid's fifth postulate, but it's not doing anyone any favors.
