@@ -5,6 +5,8 @@ AL5. What target would you use in debian/rules to build a .deb
      package which includes only non-architecture-dependent files?
      What is the "Architecture:" field for this package?
 
+AL5a. binary-indep, which generates "Architecture: all" packages.
+
 AL7. Why does a libfoo-dev package depend on libfooX?
      Why is it libfooX-dev and not libfoo-dev in some cases?
      (When) is libfooX-dev preferable over libfoo-dev?
