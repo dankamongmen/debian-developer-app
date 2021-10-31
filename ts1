@@ -1,0 +1,98 @@
+PF1. What does version 2:3.4~rc1+dfsg1-2.1+deb10u1 mean? What Debian
+     control file would you put this in?
+
+PF2. What does the version string in the Standards-Version field of a
+     package's control file represent? Why is it useful?
+
+PF5. How do you choose the "urgency" field in the changelog?
+
+PF7. What is Essential: yes? Why isn't libc essential and why can't it
+     be? Why does it not need to be essential? Why isn't the kernel
+     essential? Should init be essential?
+
+PFf. Write a small shell script which does the following two things:
+     a. prints whether a Debian binary package has a copyright file
+        in the appropriate location.
+     b. prints out the package version from the control file which is
+        inside the .deb.
+     You may use tar, ar, grep, etc., but not any middle or high-level
+     dpkg tools.
+
+PFg. Consider the following versions for a package: 1.0-1~bpo10+1 and
+     1.0+git20191013.0ab53ef-1. Please, explain the effect of symbols
+     '+' and '~' in +git and ~bpo.
+
+If you have filed bugreports (with patches) to the BTS with respect to
+packaging issues, please tell me bug numbers, so I can check them.
+                                                                                                                                    
+PP4. If one of your packages had serious problems like either
+       a) the current version in the archive is not "mature" enough
+          to be in a Debian release but it is developing and you still
+          want to maintain it
+       b) the software was abandoned upstream or became obsolete for
+          other reasons and you consider it not worth including in
+          Debian.
+      How would you proceed in these cases?
+
+PP9. What would you do if a package has no sane default configuration?
+     Suppose that it is impossible to create a default configuration that
+     works on most systems.
+
+PPc. The devscripts package contains many tools to help you with
+     packaging.  You can learn more about the available commands in the
+     file /usr/share/doc/devscripts/README.gz or alternatively by running
+     "apt-cache show devscripts".  Some of them you might already be
+     familiar with, like dget, debuild, dch or debclean, but there are a
+          many more that could prove useful.  Try testing some of them, reading
+     their manpages or, if you have any questions, feel free to ask me.
+     Let me know what some of your favourites are and why.
+
+PPd. Build one of your packages using:
+
+       debuild 2>/dev/null | grep dh_ | shuf | head -1
+
+     (substitute debuild for your favourite build command) and try to
+     tell me what that debhelper command is supposed to do.
+
+Package Building and Uploading
+------------------------------
+
+BU1. How do you manage new upstream releases?
+
+BU5. If you want to sponsor a package upload, what do you need to do?
+     Please take a random package from the archive and send me the
+     .changes file as it would look if you were sponsoring an upload of
+     this package.
+
+BU6. How do you upload a package to
+     - unstable
+     - stable / stable-proposed-updates (is there a difference?)
+     - the DELAYED queue
+
+BU7. What do you do if you've uploaded broken or incomplete files to
+     the upload queue (something that can easily happen if your Internet
+     connection is not stable, for example)?
+
+BU8. What is a source-only upload? How do you prepare a source-only
+     upload? Please explain to me about potential advantages and
+     disadvantages of such upload type. Please also explain why you
+     should do binary uploads to NEW queue and source-only uploads in
+     most common cases.
+
+Architectures and Libraries
+---------------------------
+
+AL5. What target would you use in debian/rules to build a .deb
+     package which includes only non-architecture-dependent files?
+     What is the "Architecture:" field for this package?
+
+AL7. Why does a libfoo-dev package depend on libfooX?
+     Why is it libfooX-dev and not libfoo-dev in some cases?
+     (When) is libfooX-dev preferable over libfoo-dev?
+
+ALA. What are debian/*.symbols files? How are they maintained?
+ALC. What are the special steps one must take when upgrading a
+     package that previously contained libfooX.so.N and now contains
+     libfooX.so.N+1? What if the library filename remains the same,
+     but users report that programs depending on your library now
+     stop working with the new version?
