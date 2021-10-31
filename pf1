@@ -1,0 +1,93 @@
+PF1. What does version 2:3.4~rc1+dfsg1-2.1+deb10u1 mean? What Debian
+     control file would you put this in?
+
+PF1a. Versions are controlled entirely via debian/changelog.
+
+    Breaking down the version (DPM 5.6.12, deb-version(7)):
+
+    * '2:' indicates the epoch, which defaults to 0. Epochs are defined on
+      the (usually small) unsigned integers, and provide simple namespaces
+      for upstream versions. Note that epochs ought not be used for rollbacks,
+      which ought instead use the "+really" convention.
+
+    * '3.4~rc1+dfsg1' indicates the upstream version, usually in the format
+      specified by the upstream authors. It is defined over [A-Za-z0-9.+-:~],
+      and should start with a digit. If there is no epoch, colons are not
+      allowed; if there is no debian revision, hyphens are not allowed. The
+      '+dfsg1' almost certainly indicates that the upstream source has been
+      modified to comply with DFSG requirements, and has been added by the
+      package maintainer, though I believe this to be only by convention.
+      I'm honestly unsure what ought be done if upstream releases a version
+      suffixed with "+dfsgN". Seems something of a dick move.
+
+    * '-2.1+deb10u1' indicates the debian revision. It is defined over
+      [A-Za-z0-9.+~]. It is required for all software not specifically
+      written as a Debian component. Upstream versions serve as namespaces
+      atop debian revisions. The "+deb10u1" indicates that this package is
+      part of the first update to Debian 10 ("Buster"), i.e. Debian 10.1.
+
+    Note that this is probably not an ideal grammar. In particular, since
+    the upstream version can contain hyphens, which also serve to delimit
+    the upstream version and debian revision, and also colons, which also
+    serve to delimit the epoch and upstream version, it's not possible to
+    extract the upstream version without examining the entire version string,
+    whether lexing from left to right or right to left.
+
+PF2. What does the version string in the Standards-Version field of a
+     package's control file represent? Why is it useful?
+
+PF2a. The most recent version of Debian Policy (usually truncated to three
+     components) to which the maintainer attests package conformance.
+     It is recommended (Policy 4.1) that each package be reviewed at least
+     once per Debian release, and this field provides a trivial litmus as
+     to whether that work has been performed.
+
+PF5. How do you choose the "urgency" field in the changelog?
+
+PF5a. From DP 5.6.17, "urgency" is defined over {low, medium, high, emergency,
+      critical}. The Maintainer's Guide specifies medium as a default
+      value. "high" is used by default for security updates. "emergency"
+      and "critical" are synonymous. Urgency influences the time required
+      to pass into Testing from Unstable (10, 5, and 2 days for low, medium,
+      and high, modulo autopkgtest adjustments).
+
+      I expect every upload I make to be either "medium" or (rarely)
+      "high".
+
+PF7. What is Essential: yes? Why isn't libc essential and why can't it
+     be? Why does it not need to be essential? Why isn't the kernel
+     essential? Should init be essential?
+
+PF7a. This boolean control field, when set to yes, will prevent the package
+      manager from removing the package. I count 23 installed packages on
+      my Debian Unstable workstation with "Essential: yes".
+
+      libc isn't essential because it doesn't exist, har-har. libc6 isn't
+      allowed to be Essential because it is a shared library (DPM 3.8).
+      It will not be removed (unless superseded) because it is a dependency of
+      a great many packages, some of them themselves Essential (e.g. libc-bin).
+
+      A Debian instance does not require its own kernel; see for instance any
+      of a trillion containerized installations. The kernel ought thus not be
+      essential. The same logic applies IMHO to an init system.
+
+PFf. Write a small shell script which does the following two things:
+     a. prints whether a Debian binary package has a copyright file
+        in the appropriate location.
+     b. prints out the package version from the control file which is
+        inside the .deb.
+     You may use tar, ar, grep, etc., but not any middle or high-level
+     dpkg tools.
+
+PFfa. Please see enclosed `PFfa.sh`.
+
+PFg. Consider the following versions for a package: 1.0-1~bpo10+1 and
+     1.0+git20191013.0ab53ef-1. Please, explain the effect of symbols
+     '+' and '~' in +git and ~bpo.
+
+PFga. "+git20191013" here means that the upstream Git repo has been packaged
+      using a version from 2019-10-13. "~bpo10" possibly indicates a Debian
+      Derivative's forked version number. In either case, the punctuation is
+      being used to force sorting breaks; tilde sorts before anything, even
+      before the end of a part (deb-version(5)).
+

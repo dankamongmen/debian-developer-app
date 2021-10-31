@@ -52,6 +52,6 @@ some early uploads, and especially for Advocating me as a DD. Finally, I
 thank Sebastian Ramacher for Managing my application, and all Debian Developers
 past, present, and future for admitting me to their ranks.
 
-I pledge to carry forth your torch nobly.
+I pledge to carry your torch forth nobly.
 
 —Nick Black (dank@debian.org), Atlanta 2021

@@ -5,71 +5,71 @@ PH0a. The Social Contract is a contract "with the Free Software Community",
       and its main points can be found in that prepositional clause:
 
        * Free: Debian is made up entirely of Free Software. This concept is
-          not a trivial one, and conformance is not a mechanical evaluation,
-          hence the need for the DFSG's expanded guidelines (indeed, the
-          primary difference between v1.0 and v1.1 of the DSC is the absence
-          of an explicit guarantee of "absolute freedom", and emphasis instead
-          on the scope of the DFSG). While Project resources might be used to
-          distribute less-Free or non-Free works, they are not part of the
-          system proper (Articles I, II, and V).
+         not a trivial one, and conformance is not a mechanical evaluation,
+         hence the need for the DFSG's expanded guidelines (indeed, the
+         primary difference between v1.0 and v1.1 of the DSC is the absence
+         of an explicit guarantee of "absolute freedom", and emphasis instead
+         on the scope of the DFSG). While Project resources might be used to
+         distribute less-Free or non-Free works, they are not part of the
+         system proper (Articles I, II, and V).
 
          Furthermore, one of the Project's main value propositions is an
-          entire system which can be trusted to contain only Free Software,
-          relieving users of the need to verify Freedom and vet licenses
-          themselves. Indeed, this might be considered *the* primary value
-          proposition; Debian does not guarantee the absence of bugs or
-          that software is wholly functional or well-designed (though these
-          are certainly desirable); *all* that it guarantees is that the
-          works distributed are Free according to the DFSG (Article IV).
+         entire system which can be trusted to contain only Free Software,
+         relieving users of the need to verify Freedom and vet licenses
+         themselves. Indeed, this might be considered *the* primary value
+         proposition; Debian does not guarantee the absence of bugs or
+         that software is wholly functional or well-designed (though these
+         are certainly desirable); *all* that it guarantees is that the
+         works distributed are Free according to the DFSG (Article IV).
 
        * Software Community: Debian does not exist in a vacuum, but is rather
-          a proper subset of the larger Free Software Community. It benefits
-          from work outside the Project, and hopes others might benefit from
-          work within. Aside from the -private mailing list, its records and
-          infrastructure are open for the community to inspect and possibly
-          improve. Works created for the Project will be Freely licensed and
-          thus made available to the community for use and improvement.
-          Debian allows users to do what they want with the system, including
-          the use of software which would not be admitted to the Project.
-          While conformance to the DFSG is the only requirement articulated
-          herein for admission to the Project, Debian will strive for
-          high levels of quality (Articles II, III, and IV).
+         a proper subset of the larger Free Software Community. It benefits
+         from work outside the Project, and hopes others might benefit from
+         work within. Aside from the -private mailing list, its records and
+         infrastructure are open for the community to inspect and possibly
+         improve. Works created for the Project will be Freely licensed and
+         thus made available to the community for use and improvement.
+         Debian allows users to do what they want with the system, including
+         the use of software which would not be admitted to the Project.
+         While conformance to the DFSG is the only requirement articulated
+         herein for admission to the Project, Debian will strive for
+         high levels of quality (Articles II, III, and IV).
 
       The DFSG states, in a pithy way, the minimal requirements for works
-       to be considered Free; it is not a legal document (like the Licenses
-       proper), but a set of guidelines and restrictions. Note that the
-       DFSG FAQ expands on this:
+      to be considered Free; it is not a legal document (like the Licenses
+      proper), but a set of guidelines and restrictions. Note that the
+      DFSG FAQ expands on this:
 
        "The DFSG is a potentially imperfect attempt to express what free
         software means to Debian. It is not something whose letter we argue
         about. It is not a law. Rather, it is a set of guidelines."
 
       Its main points include allowances for redistribution in both source
-       and compiled form (independent of the redistributing agent),
-       modification/derivation (including redistribution of any
-       modifications), and universality (these licensed rights apply to
-       all people and projects).
+      and compiled form (independent of the redistributing agent),
+      modification/derivation (including redistribution of any
+      modifications), and universality (these licensed rights apply to
+      all people and projects).
 
 PH1. What is Debian's approach to non-free software? Why? Is non-free
      part of the Debian System? Please also explain the difference
      between non-free and the other sections.
 
 PH1a. Non-free software is not admitted to the Debian Project. Per Article
-       IV of the DSC, however, Debian does not object to the use of non-free
-       software on the Debian system. With the goal, then, of a high-quality
-       system, non-free (but *legally distributable*) works (and software
-       depending upon such non-free works) are allowed to be distributed
-       through the contrib/non-free archive areas (and even autobuilt in some
-       cases; see Developers Reference 5.10.5). It is expected that such
-       packages will be configured to work within the Debian system. Such
-       packages are allowed to use DBTS resources, and indeed they "must not
-       be so buggy that [Debian] refuses to support them" (Policy 2.2.3).
+      IV of the DSC, however, Debian does not object to the use of non-free
+      software on the Debian system. With the goal, then, of a high-quality
+      system, non-free (but *legally distributable*) works (and software
+      depending upon such non-free works) are allowed to be distributed
+      through the contrib/non-free archive areas (and even autobuilt in some
+      cases; see Developers Reference 5.10.5). It is expected that such
+      packages will be configured to work within the Debian system. Such
+      packages are allowed to use DBTS resources, and indeed they "must not
+      be so buggy that [Debian] refuses to support them" (Policy 2.2.3).
 
-       This is done both to improve the Users' experience, for users who
-       insist on using non-free works (they can download them through apt,
-       and benefit from configuration efforts), and in the hope that
-       such works might eventually reach the main archive area (as has
-       happened with a number of projects).
+      This is done both to improve the Users' experience, for users who
+      insist on using non-free works (they can download them through apt,
+      and benefit from configuration efforts), and in the hope that
+      such works might eventually reach the main archive area (as has
+      happened with a number of projects).
 
 PH2. Suppose that Debian were offered a Debian-specific license to
      package a certain piece of software: would we put it in main?
