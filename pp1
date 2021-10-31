@@ -1,4 +1,4 @@
-PH0. First, please have a careful read of the Social Contract and                                                                   
+PH0. First, please have a careful read of the Social Contract and
      the DFSG. What do you think are their main points?
 
 PH0a. The Social Contract is a contract "with the Free Software Community",
@@ -9,7 +9,7 @@ PH0a. The Social Contract is a contract "with the Free Software Community",
           hence the need for the DFSG's expanded guidelines (indeed, the
           primary difference between v1.0 and v1.1 of the DSC is the absence
           of an explicit guarantee of "absolute freedom", and emphasis instead
-          on the scope of the DFSG). While Project resources might be used to 
+          on the scope of the DFSG). While Project resources might be used to
           distribute less-Free or non-Free works, they are not part of the
           system proper (Articles I, II, and V).
 
@@ -71,8 +71,8 @@ PH1a. Non-free software is not admitted to the Debian Project. Per Article
        such works might eventually reach the main archive area (as has
        happened with a number of projects).
 
-PH2. Suppose that Debian were offered a Debian-specific license to 
-     package a certain piece of software: would we put it in main? 
+PH2. Suppose that Debian were offered a Debian-specific license to
+     package a certain piece of software: would we put it in main?
 
 PH2a. No. This violates DSC8, "License must not be specific to Debian."
 
@@ -92,8 +92,8 @@ PH3. Please explain the difference between free speech and free beer.
      not be redistributed freely) would be gratis but not libre, and unsuitable
      for inclusion in Debian.
 
-PH4. What is your opinion about how the DFSG should be applied to files                                                             
-     that are not software, such as documentation, firmware, images,                                       ter!                     
+PH4. What is your opinion about how the DFSG should be applied to files
+     that are not software, such as documentation, firmware, images,
      etc?
 
 PH4a. Let me first state the Project's policy, which is that all such materia
@@ -119,7 +119,7 @@ PH4a. Let me first state the Project's policy, which is that all such materia
          to be otherwise. i'm firmly in the camp of "please make non-free network
          drivers available to users in the installer", and at the same time
          firmly believe them to belong in non-free.
-          
+
        * perhaps most controversially, I believe there to be exceptions that
          I would make for media that I would not make for code. code (and data
          affecting that code) runs on my machine, with the privileges i allow
