@@ -79,6 +79,8 @@ PFf. Write a small shell script which does the following two things:
      You may use tar, ar, grep, etc., but not any middle or high-level
      dpkg tools.
 
+PFfa. Please see enclosed `PFfa.sh`.
+
 PFg. Consider the following versions for a package: 1.0-1~bpo10+1 and
      1.0+git20191013.0ab53ef-1. Please, explain the effect of symbols
      '+' and '~' in +git and ~bpo.
