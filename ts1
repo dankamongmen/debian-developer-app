@@ -29,28 +29,3 @@ PPd. Build one of your packages using:
 
      (substitute debuild for your favourite build command) and try to
      tell me what that debhelper command is supposed to do.
-
-Package Building and Uploading
-------------------------------
-
-BU1. How do you manage new upstream releases?
-
-BU5. If you want to sponsor a package upload, what do you need to do?
-     Please take a random package from the archive and send me the
-     .changes file as it would look if you were sponsoring an upload of
-     this package.
-
-BU6. How do you upload a package to
-     - unstable
-     - stable / stable-proposed-updates (is there a difference?)
-     - the DELAYED queue
-
-BU7. What do you do if you've uploaded broken or incomplete files to
-     the upload queue (something that can easily happen if your Internet
-     connection is not stable, for example)?
-
-BU8. What is a source-only upload? How do you prepare a source-only
-     upload? Please explain to me about potential advantages and
-     disadvantages of such upload type. Please also explain why you
-     should do binary uploads to NEW queue and source-only uploads in
-     most common cases.

@@ -1,0 +1,57 @@
+Package Building and Uploading
+------------------------------
+
+BU1. How do you manage new upstream releases?
+
+BU1a. I'm unsure of the scope of this question. There's the question of "how
+      do you stay aware of new upstream releases?" and also "how do you ingest
+      a new upstream release?" Both seem sufficiently open-ended as to require
+      only a personal statement, but feel free to ask me to expand on either
+      topic.
+
+      I am the upstream author of all my Debian packages thus far. For
+      packages I were to maintain without authoring, I would subscribe to the
+      relevant mailing lists, RSS feeds, etc. The Debian Package Tracker,
+      among other tools, can be configured to alert me when the packaged
+      version is eclipsed by uscan(1) results.
+
+      As for ingestion of new versions, I use gbp(1)'s standard workflow.
+      As an example, I have a script "debrelease.sh" in my Notcurses source,
+      which is kept (along with Debian packaging materials) in salsa:
+
+      [0] https://raw.githubusercontent.com/dankamongmen/notcurses/master/tools/debrelease.sh
+      [1] https://salsa.debian.org/debian/notcurses
+
+      When I cut a new release, I run that from within a Salsa checkout. It
+      performs:
+
+      * uscan --repack --compression xz --force
+      * dch
+      * gpg --sign --armor --detach-sign ../notcurses_$VERSION+dfsg.1.orig.tar.xz
+      * upload of the DFSGified sources to github
+      * gbp-import-orig
+      * salsa push
+      * dpkg-buildpackage --build=source
+      * pbuilder build
+
+      If this all succeeds, I upload to unstable with dput.
+
+BU5. If you want to sponsor a package upload, what do you need to do?
+     Please take a random package from the archive and send me the
+     .changes file as it would look if you were sponsoring an upload of
+     this package.
+
+BU6. How do you upload a package to
+     - unstable
+     - stable / stable-proposed-updates (is there a difference?)
+     - the DELAYED queue
+
+BU7. What do you do if you've uploaded broken or incomplete files to
+     the upload queue (something that can easily happen if your Internet
+     connection is not stable, for example)?
+
+BU8. What is a source-only upload? How do you prepare a source-only
+     upload? Please explain to me about potential advantages and
+     disadvantages of such upload type. Please also explain why you
+     should do binary uploads to NEW queue and source-only uploads in
+     most common cases.
