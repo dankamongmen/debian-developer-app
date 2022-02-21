@@ -41,17 +41,190 @@ BU5. If you want to sponsor a package upload, what do you need to do?
      .changes file as it would look if you were sponsoring an upload of
      this package.
 
+BU5a. I've never sponsored a package before (obviously), so I can't speak
+      from experience, but I've reviewed
+
+       https://www.debian.org/doc/manuals/developers-reference/beyond-pkging.en.html#sponsoring-packages
+       https://raphaelhertzog.com/2011/02/10/best-practices-when-sponsoring-debian-packages/
+       https://wiki.debian.org/SponsorChecklist
+       https://wiki.debian.org/PaulWise/Standards
+       https://vincent.bernat.ch/en/debian-package-sponsoring
+
+      among others, and in the form of a checklist:
+
+       * Determine whether the packager is fit to generate packages. Do they
+         seem likely to support the package through its natural lifetime?
+         Are they competent enough to do so without an active, cooperating
+         upstream? Do they seem committed to Debian's goals and practices?
+
+       * Determine whether the upstream project is fit to be packaged: is it
+         using official tagged, versioned releases? Does it have some pretense
+         towards API/ABI stability, if a library? Does it serve a useful
+         purpose, one which is not already solved in a superior way in Debian?
+         Does it have a reasonable security story?
+
+       * Determine whether the upstream project can be included in Debian:
+         is/are the license(s) compatible? Is it feasible to enumerate
+         copyright holders (ideally, this information is being properly
+         tracked by upstream, but the information must be available). Are
+         assets such as images and documentation available in the "form
+         most often used to modify them"? Does the project bundle other
+         projects, and if so, are they already in Debian? Does the name
+         collide with existing packages?
+
+         The REJECT-FAQ and NEWChecklist are both relevant for this process:
+
+          * http://ftp-master.debian.org/REJECT-FAQ.html
+          * https://wiki.debian.org/LucaFalavigna/NEWChecklist
+
+        * Determine whether the upstream project is being properly represented
+          by the packaged source materials. Does the upstream tarball match
+          what shipped (modulo dfsg changes)?
+
+     Oh wait, i just realized you want the actual mechanism of sponsoring,
+     lol =]. Well, I'll leave that material in, I guess.
+
+       * Acquire the candidate's public key as securely as possible.
+       * Download the candidate dsc.
+       * Use dscverify(1) with the --keyring argument to validate the dsc.
+       * Acquire the source package, and verify that it matches that specified.
+       * Generate the modified source tarball, if applicable.
+       * Perform the analyses I began to enumerate above, coaching the
+         mentee on oversights or deficiencies.
+       * Verify build sanity with lintian(1), pbuilder(8), etc. Test
+         installation and removal.
+       * *Do not* modify the changelog, nor the Maintainer field of the
+         control file. This ought represent the packager, not the sponsor.
+       * Run dpkg-buildpackage -S -kKEYID (or rely on DEB_SIGN_KEYID). This
+         will generate a changes file signed by the specified key (which
+         I must of course have available).
+       * Upload the package to unstable; it will be placed in the NEW queue.
+
+     Future uploads of the same package ought be examined using debdiff(1),
+     and then uploaded to unstable, where they will proceed directly to
+     the unstable archive.
+
+     I "sponsored" chafa 1.8.0.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Sun, 05 Sep 2021 16:22:16 -0400
+Source: chafa
+Architecture: source
+Version: 1.8.0-1
+Distribution: unstable
+Urgency: medium
+Maintainer: Mo Zhou <lumin@debian.org>
+Changed-By: Mo Zhou <lumin@debian.org>
+Closes: 978781
+Changes:
+ chafa (1.8.0-1) unstable; urgency=medium
+ .
+   [ Boyuan Yang ]
+   * Manually create m4 directory prior to configure to fix FTBFS
+     with autoconf 2.70+. (Closes: #978781)
+ .
+   [ Mo Zhou ]
+   * New upstream version 1.8.0
+Checksums-Sha1:
+ ccf55a376f38cc9039518b0a9945fa8dadbebc63 1971 chafa_1.8.0-1.dsc
+ f2dd43838a8fbf9ec3eab5a6d9e7b13887b75098 1260691 chafa_1.8.0.orig.tar.gz
+ 8d70987bd385a22d6ed4f3ffdf407fea9660dcfb 4756 chafa_1.8.0-1.debian.tar.xz
+ c82e7b3533277a1c6f8f09b7607fda266dca1369 12976 chafa_1.8.0-1_source.buildinfo
+Checksums-Sha256:
+ 40b24de2f1f9ce8b0af68621cd9e20bab5858ccab3c835bdef639b15c46d128b 1971 chafa_1.8.0-1.dsc
+ 1d9ef79955ef8d5e86ebf1eb641b9629d732b7a44ccc9d44e1ee939a4a7e63e3 1260691 chafa_1.8.0.orig.tar.gz
+ c606248e7f6614f9bc4083f39a9c83abdc0f085ebeb982a460321dd6eb467000 4756 chafa_1.8.0-1.debian.tar.xz
+ f6f11451561e564ebb50330cb28e33c036829363baea4e18ca72e4d24097b04e 12976 chafa_1.8.0-1_source.buildinfo
+Files:
+ 985bb4288d97071d94f8291137fc08b6 1971 graphics optional chafa_1.8.0-1.dsc
+ 08f45c944436d5d574415faca3c71b20 1260691 graphics optional chafa_1.8.0.orig.tar.gz
+ e1c9bcfee081b3724fa3707886384278 4756 graphics optional chafa_1.8.0-1.debian.tar.xz
+ 43aa08c6ab8fa3fa7c3737eb65354eb1 12976 graphics optional chafa_1.8.0-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEmi//dHmU4oe+xCLxX0NADCHL+swFAmITV3sACgkQX0NADCHL
++sysERAAlfsx4b+ZOMIoLnGvqmjHwnlkJ7lG2l+JNN63VM31WCl28FGFu7JYzOnZ
+zAe8kYs+MnsrFIYkh2OsqycRfCIFtkXEwLubNlvanUcx3AV9CN40U0UoCfqq+/Wg
+lA78ICa3jUuNQAaQpBUaHMdnmJ/zkuKRKp7VAoH0lqhB0uoVv96dvChw/09+9nb6
+KFNKUqXmX02OFrkuWfHuaR07ZOK+loCfNbL94QrTAMitcTeu+bcoOlpmb4fNnzkc
+vyOXNIXRAKe3z1kzmy/z0br0Jfm4V0C2WES0w7nn+Zjaa/AlsveP2B2JdCYY4jcQ
+2kb5imRaORgCB4bEpwzjDT0EqzgjuopRJ6SbNdn7E0phB83XiyAoJ3MWcZ7t6oXb
+6df72TcEj4zyEHRRh3c3W5ph1aTh0YUa8S/+IlRhxkBnGMdOmWEouPS7AZxGV980
+eR0S0Jg/pH9xmwKPAsjiKo1F44DNWnBaxQVpMVbbM0KZdIvIALKHOAxFfb+0JXxV
+wgnW6sOHo9qtbAbzNtwzrywD++xS9zHy9m0NX4MsRsnGpiyOzy359pEz+6BpcF55
+Ds52N5SFgm4EG95x3cC5VUA7cNw4n8G3q/uaK3J35ogwh7EC7XksOguP1urhFt53
+L3HtIGQzIHWBIZdo6JKqhEtISq8u1LfRJBb0AXD24e6X1VJmRa0=
+=Q2rj
+-----END PGP SIGNATURE-----
+
+   It's signed with my key:
+
+[schwarzgerat](0) $ gpg --verify ../chafa_1.8.0-1_source.changes
+gpg: Signature made Mon 21 Feb 2022 04:12:27 AM EST
+gpg:                using RSA key 9A2FFF747994E287BEC422F15F43400C21CBFACC
+gpg: Good signature from "Nick Black (Home server) <dank@qemfd.net>" [full]
+gpg:                 aka "Nick Black (Public gmail account) <dankamongmen@gmail.com>" [full]
+gpg:                 aka "Nick Black <nickblack@acm.org>" [full]
+gpg:                 aka "Nick Black (Linux Foundation forwarding address) <nickblack@linux.com>" [unknown]
+[schwarzgerat](0) $
+
 BU6. How do you upload a package to
      - unstable
      - stable / stable-proposed-updates (is there a difference?)
      - the DELAYED queue
 
+   I believe that the distribution is chosen based off the Distribution
+   field of the changes file (and taken there from the changelog). Uploading
+   to different distributions is a matter, then, of the same dput invocation.
+
+   To upload to unstable, use unstable in the changelog.
+
+   To upload to stable, the suite name must be specified in the changelog.
+   A bug ought be filed on the release.debian.org pseudo package containing
+   debdiff(1) output, rationale, and associated existing bug numbers. Uploading
+   will place the package in the proposed-updates-new queue. Stable release
+   managers will move the package to stable-proposed-updates if approved. It
+   will be included in stable with the next point release.
+
+   I would assume, then, that DDs not part of the Stable Release Management
+   Team cannot upload to stable-proposed-updates directly. I have no proof
+   of this; if it is not true, I imagine that doing so is a downright
+   transgressive faux pas.
+
+   The DELAYED queues are reached via upload directory DELAYED/X-day such that
+   0 <= X < 16, probably best achieved via the --delayed argument to dput.
+   DELAYED seems most suitable for unrequested NMUs.
+
 BU7. What do you do if you've uploaded broken or incomplete files to
      the upload queue (something that can easily happen if your Internet
      connection is not stable, for example)?
+
+  Upload a signed .commands file with the command "rm uploadname", after
+  using an honest-to-God command-line FTP client to find this answer in
+  ftp://ftp.upload.debian.org/pub/UploadQueue/README, since FTP isn't in
+  Chrome anymore.
 
 BU8. What is a source-only upload? How do you prepare a source-only
      upload? Please explain to me about potential advantages and
      disadvantages of such upload type. Please also explain why you
      should do binary uploads to NEW queue and source-only uploads in
      most common cases.
+
+   Source-only uploads are, since July 2019, the only uploads allowed to migrate
+   to testing. Prepare a source-only upload with dpkg-buildpackage -S. Source-only
+   uploads are preferable in a world in which the distributed binary packages are
+   built on centralized, common build servers (Debian testing/stable is now such a
+   world), since binaries would be thrown away at ingestion. Use of such a scheme
+   is desirable for reasons including the possibility of reproducible builds,
+   immediate verification that the package *can* be built from source, automation
+   of error-prone procedures, assurance of build environment freshness, and a
+   modicum of professionalism.
+
+   On the other hand, compromising the build infrastructure now compromises all
+   binaries built there. I don't find this argument very compelling. If you have
+   compromised the build server, you've in all likelihood compromised Debian
+   deeply, and have numerous attack pathways available to you.
