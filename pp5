@@ -1,0 +1,157 @@
+If you have filed bugreports (with patches) to the BTS with respect to
+packaging issues, please tell me bug numbers, so I can check them.
+
+PP4. If one of your packages had serious problems like either
+       a) the current version in the archive is not "mature" enough
+          to be in a Debian release but it is developing and you still
+          want to maintain it
+       b) the software was abandoned upstream or became obsolete for
+          other reasons and you consider it not worth including in
+          Debian.
+      How would you proceed in these cases?
+
+PP4aa. Such a package might make sense to maintain purely in unstable.
+       If we're going to do so, but don't want it to reach a release,
+       the best thing to do is probably inhibiting its migration to
+       testing. This could be effected by filing a blocking bug (e.g.
+       any with severity serious or higher) against the package.
+
+       If this decision is made after the package had already reached
+       testing (or even stable), the package ought probably be removed
+       from those distributions. This is accomplished by mailing the
+       (Stable) Release Managers at debian-release@lists.debian.org,
+       and/or filing a bug against the release.debian.org pseudo-package.
+       Such bugs ought be usertagged with the "rm" usertag and user
+       release.debian.org@packages.debian.org.
+
+PP4ba. Given that this removal doeesn't seem time-sensitive, we'll allow the
+       normal path to play out. Per e.g. https://qa.debian.org/howto-remove.html,
+       https://wiki.debian.org/ftpmaster_Removals, and DDRef 5.9.2, I'd
+       proceed thusly:
+
+       1. Notify maintainers of any reverse dependencies that I intend to
+          remove the package. Probably mail -devel and let this be known
+          there as well, though this isn't required.
+       2. Request removal from unstable via a normal-severity bug filed
+          against the ftp.debian.org pseudo-package, having a title
+          constructed from the information at
+          https://ftp-master.debian.org/removals.html. In particular, I
+          would be using the ROM reason (Request-of-Maintainer), and the
+          NPOASR tag if applicable. My subject would thus be of the form:
+
+            RM: mypackage -- "RM; unmaintained upstream"
+
+          since I want the source package (and thus all derived
+          binary packages) removed.
+       3. Time's arrow marches forward. Eventually, the package is
+          removed from unstable, and this will automatically result
+          in its removal from testing.
+       4. Given the low priority of the removal, it's unlikely I'd do
+          anything about any stable releases.
+
+PP9. What would you do if a package has no sane default configuration?
+     Suppose that it is impossible to create a default configuration that
+     works on most systems.
+
+PP9a. Let's consider the ways a package can transcend default configs:
+
+      a. There must be some per-machine data for security purposes.
+         Example: openssh
+      b. The configuration will be entirely hardware-dependent, and
+         the software offers no reasonable defaults.
+         Examples: smartd, pwmconfig
+      c. Configuration requires input from the administrator, such
+         as a password.
+         Examples: mysql-server
+      d. Configuration is complex, heavily site-dependent, and there
+         are few reasonable, meaningful, useful "default actions".
+         Examples: openldap, postfix, wpa-supplicant
+
+      In the first case, it is sufficient to generate the necessary
+      materials in a postinst step. Ideally, the postinst will
+      generate the per-machine material in a common, known
+      location, and reference that in a common config. In OpenSSH,
+      this is handled by the `create_keys` function in
+      openssh-server.postinst, run in the `configure` step.
+
+      For the second case, an enumerative, largely-disabled configuration
+      file should be supplied. This file can explain the various syntaxes
+      and semantics available. It can then be edited by hand, or a helper
+      tool can examine the system and spit it out. If this helper tool
+      requires user interaction, it should probably not be run as part
+      of the package installation or configuration, since these might
+      be headless operations--it must at least provide for configuration
+      performed manually, following installation.
+
+      For the third set of difficulties, debconf is generally suitable.
+      The headless case can use preseeding to set these properties.
+      These properties can then be substituted into the common config,
+      or sourced from a distinct file prepared from debconf.
+
+      For the last category, the solution is similar to the second:
+      provide a common config consisting almost entirely of well-documented,
+      commented-out examples. If appropriate, supply several example
+      configs in the documentation area. The common default config
+      should ensure that minimal services are exposed until the administrator
+      explicitly opts-in (I'm not a big fan, for instance, of the
+      Debian Apache default config). If an MTA is installed, it
+      certainly ought not be relaying by default. wpa_supplicant ought
+      probably not blindly connect to unsecured networks. etc.
+
+      Special care ought be paid to ensuring intelligent persistence of
+      local changes across package updates. For this reason and others,
+      I would recommend use of a common config with a clear indicator that
+      local configs ought be placed in drop-in directories (.d style).
+
+PPc. The devscripts package contains many tools to help you with
+     packaging.  You can learn more about the available commands in the
+     file /usr/share/doc/devscripts/README.gz or alternatively by running
+     "apt-cache show devscripts".  Some of them you might already be
+     familiar with, like dget, debuild, dch or debclean, but there are a
+          many more that could prove useful.  Try testing some of them, reading
+     their manpages or, if you have any questions, feel free to ask me.
+     Let me know what some of your favourites are and why.
+
+PPca. I had never heard of (possibly among others) dcmd, dd-list, cowpoke,
+      archpath, deb-janitor, deb-why-removed, mergechanges, ltnu, plotchangelog,
+      rmadison, who-permits-upload, and who-uploads.
+
+      I'm a big fan of build-rdeps to quickly explore impact of potential
+      changes. ltnu sounds neat. wrap-and-sort is a comforting blanket to
+      have at my disposal.
+
+      I actually do know the majority of these (more than I expected), between
+      running my own Debian Derivative and working on Google's Goobuntu team
+      with Philip Kerr, Marga Manterola, Sebastian Harl and others. Robert
+      Edmonds also gave me a pretty firm schooling in devscripts. I had
+      good teachers =].
+
+
+PPd. Build one of your packages using:
+
+       debuild 2>/dev/null | grep dh_ | shuf | head -1
+
+     (substitute debuild for your favourite build command) and try to
+     tell me what that debhelper command is supposed to do.
+
+PPda. I built notcurses 3.0.7+dfsg.1-1, spinning the wheel and getting:
+
+[schwarzgerat](0) $ debuild 2> /dev/null | grep dh_  | shuf | head -1
+   dh_perl -O--buildsystem=cmake
+[schwarzgerat](0) $
+
+dh_perl(1) calculates Perl dependencies and cleans up after MakeMaker.
+The -O--buildsystem=cmake is a generic debhelper(7) argument, used by
+dh(1) when passing user-specified options to all commands it runs.
+dh_perl (unsurprisingly) doesn't key off of which C buildsystem we
+employed, at least so far as I can tell from a quick check of
+/usr/bin/dh_perl.
+
+Calculation of the Perl dependencies involves examining the relevant
+Perl sources, and replacing ${perl:Depends} entries in the control
+file with the appropriate perl or perlapi dependencies.
+
+As I have no Perl, and would never write Perl, nor accept it as a
+gift, dh_perl is doing little in the Notcurses packaging process
+save burning the hydrocarbonic wisps of a few dinosaurs. Dinosaur
+corpses for a dinosaur language. How I loathe Perl.
