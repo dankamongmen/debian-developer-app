@@ -1,3 +1,5 @@
+*update: I was approved as a Debian Developer 2022-03-03*
+
 # Endankifying Debian
 
 I applied to become a Debian Developer with full uploading privileges in
